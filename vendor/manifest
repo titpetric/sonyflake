@@ -1,0 +1,21 @@
+{
+	"version": 0,
+	"dependencies": [
+		{
+			"importpath": "github.com/namsral/flag",
+			"repository": "https://github.com/namsral/flag",
+			"vcs": "git",
+			"revision": "7fa59bdb55485001d702d9b6e15367cdf26bfde8",
+			"branch": "master",
+			"notests": true
+		},
+		{
+			"importpath": "github.com/sony/sonyflake",
+			"repository": "https://github.com/sony/sonyflake",
+			"vcs": "git",
+			"revision": "fa881fb1052b152e977c41023052c2f2a1c475e9",
+			"branch": "master",
+			"notests": true
+		}
+	]
+}
