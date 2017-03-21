@@ -1,0 +1,9 @@
+- type: serial
+  service: sonyflake
+  steps:
+    - name: build
+      command: make
+    - name: push
+      type: push
+      image_name: titpetric/sonyflake
+      encrypted_dockercfg_path: ./.dockercfg.encrypted
