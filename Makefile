@@ -5,7 +5,7 @@ build:
 	docker build --rm -t titpetric/sonyflake .
 	docker tag titpetric/sonyflake titpetric/sonyflake:${GITVERSION}
 	# push
-	docker push titpetric/sonyflake:latest
 	docker push titpetric/sonyflake:${GITVERSION}
+	docker push titpetric/sonyflake:latest
 
 .PHONY: build
