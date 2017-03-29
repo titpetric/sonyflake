@@ -4,8 +4,5 @@ MAINTAINER Tit Petric <black@scene-si.org>
 
 RUN apk --update add bash make docker
 
-ARG GITVERSION=development
-ENV GITVERSION ${GITVERSION}
-
 ADD . /go/src/app
 WORKDIR /go/src/app
