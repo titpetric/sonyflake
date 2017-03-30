@@ -3,8 +3,8 @@ FROM alpine:3.5
 MAINTAINER Tit Petric <black@scene-si.org>
 
 ARG GITVERSION=development
-ENV GITVERSION ${GITVERSION}
+ARG GITTAG=development
+ENV GITVERSION ${GITVERSION} GITTAG ${GITTAG}
 
-ADD sonyflake /sonyflake
-
+ADD ./build/sonyflake /sonyflake
 ENTRYPOINT ["/sonyflake"]
