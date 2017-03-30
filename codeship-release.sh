@@ -50,7 +50,7 @@ set +e
 github_delete ${CI_TAG_AUTO}
 set -e
 
-github_release ${CI_TAG_AUTO} "Automated build $(date)"
+github_release ${CI_TAG_AUTO} "Automated build $(date) [skip ci]"
 
 FILES=$(find build -type f | grep tgz$)
 for FILE in $FILES; do
