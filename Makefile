@@ -1,15 +1,22 @@
-all: build container push
+all:
+	@echo 'Usage: make <prepare|build-go|build-docker>'
 
-build:
-	@rm -f sonyflake
-	CGO_ENABLED=0 GOOS=linux go build -o sonyflake main.go
+build-go: build/sonyflake build/sonyflake.exe
+	@echo "Build finished"
 
-container:
-	docker build --rm -t titpetric/sonyflake --build-arg GITVERSION=${GITVERSION} .
-	docker tag titpetric/sonyflake titpetric/sonyflake:${GITVERSION}
+build/sonyflake:
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o build/sonyflake main.go
+	cd build && tar -zcvf sonyflake_linux_64bit.tgz sonyflake && cp sonyflake .. && cd ..
 
-push:
-	docker push titpetric/sonyflake:${GITVERSION}
-	docker push titpetric/sonyflake:latest
+build/sonyflake.exe:
+	CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o build/sonyflake.exe main.go
+	cd build && tar -zcvf sonyflake_windows_64bit.tgz sonyflake.exe && cd ..
 
-.PHONY: all build container push
+build-docker:
+	docker build --rm -t titpetric/sonyflake --build-arg GITVERSION=${CI_COMMIT_ID} --build-arg GITTAG=${CI_TAG_ID} .
+
+prepare:
+	@rm -rf build && mkdir build
+	@echo "Build folder prepared"
+
+.PHONY: all build-docker prepare
