@@ -5,8 +5,11 @@ set -e
 CI_COMMIT_ID=${CI_COMMIT_ID:-$(git rev-list HEAD | head -n 1)}
 CI_COMMIT_ID_SHORT=${CI_COMMIT_ID:0:6}
 
-## Get tag ID
+## Get latest tag ID
 CI_TAG_ID=$(git tag | tail -n 1)
+if [ -z "${CI_TAG_ID}" ]; then
+	CI_TAG_ID="v0.0.0";
+fi
 CI_TAG_AUTO="$(echo ${CI_TAG_ID} | awk -F'.' '{print $1 "." $2}').$(date +"%y%m%d-%H%M")"
 
 ## Login to docker hub on release action
@@ -44,16 +47,13 @@ function github_delete {
 }
 
 set +e
-github_delete ${CI_TAG_ID}
 github_delete ${CI_TAG_AUTO}
 set -e
 
-github_release ${CI_TAG_ID} "Latest release ${CI_TAG_ID}"
-github_release ${CI_TAG_AUTO} "Checkpoint release ${CI_TAG_ID}"
+github_release ${CI_TAG_AUTO} "Automated build $(date)"
 
 FILES=$(find build -type f | grep tgz$)
 for FILE in $FILES; do
-	github_upload ${CI_TAG_ID} "$FILE"
 	github_upload ${CI_TAG_AUTO} "$FILE"
 done
 
