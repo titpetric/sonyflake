@@ -11,4 +11,6 @@ if [ -z "${CI_TAG_ID}" ]; then
 	CI_TAG_ID="v0.0.0";
 fi
 
-make -e CI_TAG_ID=${CI_TAG_ID} -e CI_COMMIT_ID=${CI_COMMIT_ID} -e CI_COMMIT_ID_SHORT=${CI_COMMIT_ID_SHORT} "$@"
+make -e CI_TAG_ID=${CI_TAG_ID} \
+     -e CI_COMMIT_ID=${CI_COMMIT_ID} \
+     -e CI_COMMIT_ID_SHORT=${CI_COMMIT_ID_SHORT} "$@"
