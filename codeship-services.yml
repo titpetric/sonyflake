@@ -3,7 +3,5 @@ sonyflake:
     dockerfile: Dockerfile.build
   add_docker: true
   encrypted_env_file: .env.encrypted
-  environment:
-    CGO_ENABLED: 0
   volumes:
     - ./:/go/src/app
