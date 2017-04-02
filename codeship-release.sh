@@ -45,18 +45,7 @@ function github_upload {
 		--file "$2"
 }
 
-function github_delete {
-	echo "Deleting release: $1"
-	github-release delete \
-		--user titpetric \
-		--repo sonyflake \
-		--tag "$1"
-}
-
 ## Release to GitHub
-set +e
-github_delete ${CI_TAG_AUTO}
-set -e
 github_release ${CI_TAG_AUTO} "$(date)"
 FILES=$(find build -type f | grep tgz$)
 for FILE in $FILES; do
