@@ -10,7 +10,10 @@ CI_TAG_ID=$(git tag | tail -n 1)
 if [ -z "${CI_TAG_ID}" ]; then
 	CI_TAG_ID="v0.0.0";
 fi
-CI_TAG_AUTO="$(echo ${CI_TAG_ID} | awk -F'.' '{print $1 "." $2}').$(<build/.date)"
+CI_TAG_AUTO="${CI_TAG_ID}"
+if [ -f "build/.date" ]; then
+	CI_TAG_AUTO="$(echo ${CI_TAG_ID} | awk -F'.' '{print $1 "." $2}').$(<build/.date)"
+fi
 
 make -e CI_TAG_ID=${CI_TAG_ID} \
      -e CI_TAG_AUTO=${CI_TAG_AUTO} \
