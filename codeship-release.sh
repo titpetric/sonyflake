@@ -32,7 +32,7 @@ function github_release {
 		--repo sonyflake \
 		--tag "$1" \
 		--name "$2" \
-		--description "$CHANGELOG"
+		--description "$changelog"
 }
 
 function github_upload {
