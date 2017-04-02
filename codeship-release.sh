@@ -20,12 +20,19 @@ fi
 function github_release {
 	TAG="$1"
 	NAME="$2"
+	latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+	comparison="$latest_tag..HEAD"
+	if [ -z "$latest_tag" ]; then
+		comparison="";
+	fi
+	changelog=$(git log $comparison --oneline --no-merges)
 	echo "Creating release $1: $2"
 	github-release release \
 		--user titpetric \
 		--repo sonyflake \
 		--tag "$1" \
-		--name "$2"
+		--name "$2" \
+		--description "$CHANGELOG"
 }
 
 function github_upload {
@@ -50,7 +57,7 @@ set +e
 github_delete ${CI_TAG_AUTO}
 set -e
 
-github_release ${CI_TAG_AUTO} "Automated build $(date) [skip ci]"
+github_release ${CI_TAG_AUTO} "$(date)"
 
 FILES=$(find build -type f | grep tgz$)
 for FILE in $FILES; do
