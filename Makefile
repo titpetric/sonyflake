@@ -6,7 +6,7 @@ build-go: build/sonyflake build/sonyflake.exe
 
 build/sonyflake:
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o build/sonyflake main.go
-	cd build && tar -zcvf sonyflake_linux_64bit.tgz sonyflake && cp sonyflake .. && cd ..
+	cd build && tar -zcvf sonyflake_linux_64bit.tgz sonyflake && cd ..
 
 build/sonyflake.exe:
 	CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o build/sonyflake.exe main.go
