@@ -13,7 +13,7 @@ build/sonyflake.exe:
 	cd build && tar -zcvf sonyflake_windows_64bit.tgz sonyflake.exe && cd ..
 
 build-docker:
-	docker build --rm -t titpetric/sonyflake --build-arg GITVERSION=${CI_COMMIT_ID} --build-arg GITTAG=${CI_TAG_ID} .
+	docker build --rm -t titpetric/sonyflake --build-arg GITVERSION=${CI_COMMIT_ID} --build-arg GITTAG=${CI_TAG_AUTO} .
 
 prepare:
 	@rm -rf build && mkdir build
