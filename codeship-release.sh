@@ -2,7 +2,7 @@
 set -e
 
 ## Get git commit ID
-CI_COMMIT_ID=${CI_COMMIT_ID:-$(git rev-list HEAD | head -n 1)}
+CI_COMMIT_ID=${CI_COMMIT_ID:-$(git rev-list HEAD --max-count=1)}
 CI_COMMIT_ID_SHORT=${CI_COMMIT_ID:0:6}
 
 ## Get latest tag ID
@@ -53,17 +53,17 @@ function github_delete {
 		--tag "$1"
 }
 
+## Release to GitHub
 set +e
 github_delete ${CI_TAG_AUTO}
 set -e
-
 github_release ${CI_TAG_AUTO} "$(date)"
-
 FILES=$(find build -type f | grep tgz$)
 for FILE in $FILES; do
 	github_upload ${CI_TAG_AUTO} "$FILE"
 done
 
+## Release to Docker Hub
 docker tag titpetric/sonyflake titpetric/sonyflake:${CI_COMMIT_ID_SHORT}
 docker push titpetric/sonyflake:${CI_COMMIT_ID_SHORT}
 docker push titpetric/sonyflake:latest
