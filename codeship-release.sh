@@ -3,14 +3,14 @@ set -e
 
 ## Get git commit ID
 CI_COMMIT_ID=${CI_COMMIT_ID:-$(git rev-list HEAD --max-count=1)}
-CI_COMMIT_ID_SHORT=${CI_COMMIT_ID:0:6}
+CI_COMMIT_ID_SHORT=${CI_COMMIT_ID:0:7}
 
 ## Get latest tag ID
 CI_TAG_ID=$(git tag | tail -n 1)
 if [ -z "${CI_TAG_ID}" ]; then
 	CI_TAG_ID="v0.0.0";
 fi
-CI_TAG_AUTO="$(echo ${CI_TAG_ID} | awk -F'.' '{print $1 "." $2}').$(date +"%y%m%d-%H%M")"
+CI_TAG_AUTO="$(echo ${CI_TAG_ID} | awk -F'.' '{print $1 "." $2}').$(<build/.date)"
 
 ## Login to docker hub on release action
 if [ ! -f "/root/.docker/config.json" ]; then
