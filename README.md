@@ -1,5 +1,7 @@
 # A ID generator service suitable for docker swarm
 
+[ ![Codeship Status for titpetric/sonyflake](https://app.codeship.com/projects/5d1e6370-f066-0134-47c5-7e04daa49e7e/status?branch=master)](https://app.codeship.com/projects/209063)
+
 This is a test of an ID generator service which can be deployed on docker swarm.
 Currently a HTTP interface is provided, which spits out IDS created by [sony/sonyflake](https://github.com/sony/sonyflake).
 
